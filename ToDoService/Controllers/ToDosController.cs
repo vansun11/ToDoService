@@ -36,7 +36,7 @@ namespace ToDoService.Controllers
         [HttpGet]
         public List<ToDoItem> List()
         {
-            //CheckAndThrowException();
+            CheckAndThrowException();
             return toDoItems;
         }
 

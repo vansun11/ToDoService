@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { TodoApiService } from '../api/todo.api.service';
 import { ToDoItem } from '../model/ToDoItem';
 import { TodoStoreService } from './todo-store.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +20,6 @@ export class TodoService {
   public get todoItems(): Array<ToDoItem> {
     return this.todoStore.getAll();
   }
-  // public get todoItems(): Array<ToDoItem> {
-  //   this.todoApi.getAll().subscribe(res => res);
-  //   return this.res;
-  // }
 
   public create(todoItem: ToDoItem): void {
     this.todoApi.create(todoItem).subscribe({
@@ -37,10 +34,7 @@ export class TodoService {
   }
 
   public delete(id: number): void {
-    this.todoApi.delete(id).subscribe({
-      next: Response => {},
-      error: error => this.errorMessage = error.errorMessage
-    })
+    this.todoApi.delete(id)
   }
 
   public selectTodoItem(id: number): void {
@@ -60,7 +54,7 @@ export class TodoService {
   }
 
   public findById(id: number): ToDoItem {
-    this.todoApi.findById(id).subscribe(res => res);
+    this.todoApi.findById(id).subscribe(res => res)
     return this.res;
   }
 }
