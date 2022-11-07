@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ToDoItem } from '../model/ToDoItem';
@@ -7,14 +7,23 @@ import { ToDoItem } from '../model/ToDoItem';
   providedIn: 'root'
 })
 export class TodoApiService {
+  baseUrl: string = 'https://localhost:5001/ToDos'
 
   constructor(private http: HttpClient) { }
 
   create(todoItem: ToDoItem): Observable<void> {
-    return this.http.post<void>('https://localhost:5001/ToDos', todoItem)
+    return this.http.post<void>(this.baseUrl, todoItem)
   }
 
   delete(id: number): Observable<void> {
-    return this.http.delete<void>(`https://localhost:5001/ToDos?id=${id}`)
+    return this.http.delete<void>(`${this.baseUrl}?id=${id}`)
+  }
+
+  findById(id: number): Observable<ToDoItem> {
+    return this.http.get<ToDoItem>(`${this.baseUrl}/${id}`)
+  }
+
+  getAll(): Observable<ToDoItem[]> {
+    return this.http.get<ToDoItem[]>(this.baseUrl)
   }
 }
