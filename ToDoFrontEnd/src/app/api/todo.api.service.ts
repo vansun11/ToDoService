@@ -13,4 +13,8 @@ export class TodoApiService {
   create(todoItem: ToDoItem): Observable<void> {
     return this.http.post<void>('https://localhost:5001/ToDos', todoItem)
   }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`https://localhost:5001/ToDos?id=${id}`)
+  }
 }
